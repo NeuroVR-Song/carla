@@ -73,7 +73,7 @@ set OSM2ODR_INSTALL_PATH=%ROOT_PATH:/=\%PythonAPI\carla\dependencies\
 if %REMOVE_INTERMEDIATE% == true (
     rem Remove directories
     for %%G in (
-        "%OSM2ODR_INSTALL_PATH%",
+        "%OSM2ODR_VSPROJECT_PATH%",
     ) do (
         if exist %%G (
             echo %FILE_N% Cleaning %%G
@@ -98,10 +98,12 @@ if %BUILD_OSM2ODR% == true (
     cmake -G "Visual Studio 16 2019" -A x64^
         -DCMAKE_CXX_FLAGS_RELEASE="/MD /MP"^
         -DCMAKE_INSTALL_PREFIX="%OSM2ODR_INSTALL_PATH:\=/%"^
-        -DPROJ_INCLUDE_DIR=%INSTALLATION_DIR:/=\%\proj-install\include^
-        -DPROJ_LIBRARY=%INSTALLATION_DIR:/=\%\proj-install\lib\proj.lib^
-        -DXercesC_INCLUDE_DIR=%INSTALLATION_DIR:/=\%\xerces-c-3.2.3-install\include^
-        -DXercesC_LIBRARY=%INSTALLATION_DIR:/=\%\xerces-c-3.2.3-install\lib\xerces-c.lib^
+        -DPROJ_INCLUDE_DIR=%INSTALLATION_DIR:/=\%proj-install\include^
+        -DPROJ_LIBRARY=%INSTALLATION_DIR:/=\%proj-install\lib\proj.lib^
+        -DXercesC_INCLUDE_DIR=%INSTALLATION_DIR:/=\%xerces-c-3.2.3-install\include^
+        -DXercesC_LIBRARY=%INSTALLATION_DIR:/=\%xerces-c-3.2.3-install\lib\xerces-c_3.lib^
+        -DSQLite3_INCLUDE_DIR=%INSTALLATION_DIR:/=\%sqlite3-install\include^
+        -DSQLite3_LIBRARY=%INSTALLATION_DIR:/=\%sqlite3-install\lib\sqlite3.lib^
         "%OSM2ODR_SOURCE_PATH%"
     if %errorlevel% neq 0 goto error_cmake
 
